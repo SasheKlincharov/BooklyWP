@@ -1,0 +1,59 @@
+<div xmlns:th="http://www.thymeleaf.org">
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">WEB PROGRAMMING</h1>
+            <h3 class="jumbotron-heading">All tenants</h3>
+        </div>
+    </section>
+
+    <div class="container mb-4">
+        <div class="row">
+            <div class="col-12" th:if="${tenants.size() > 0}">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">Tenant name</th>
+                            <th scope="col">Tenant owner</th>
+                            <th scope="col">Tenant description</th>
+                            <th scope="col">Image</th>
+                            <th scope="col">PhoneNumber</th>
+                            <th scope="col">E-mail</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="tenant : ${tenants}" class="product">
+                            <td th:text="${tenant.getName()}"></td>
+                            <td th:text="${tenant.getOwner().getUsername()}"></td>
+                            <td th:text="${tenant.getDescription()}"></td>
+                            <td><img style="height:100px;" th:src="${tenant.getLogoUrl()}"></td>
+                            <td th:text="${tenant.getPhoneNumber()}"></td>
+                            <td th:text="${tenant.getEmail()}"></td>
+                            <td class="text-right">
+                                <form th:action="@{'/tenants/delete/{id}' (id=${tenant.getId()})}"
+                                      th:method="DELETE">
+                                    <button type="submit"
+                                            class="btn btn-sm btn-danger delete-product">
+                                        <i class="fa fa-trash">Delete</i>
+                                    </button>
+                                </form>
+                                <a th:href="@{'/tenants/edit-form/{id}' (id=${tenant.getId()})}"
+                                   class="btn btn-sm btn-info edit-product">
+                                    <i class="fa fa-trash">Edit</i>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col mb-3">
+                <div class="row">
+                    <a href="/tenants/add-form" class="btn btn-block btn-dark add-product-btn">
+                        Add new tenant
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
