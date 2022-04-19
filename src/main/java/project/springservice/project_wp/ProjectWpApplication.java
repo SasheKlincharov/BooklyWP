@@ -11,9 +11,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
 @ServletComponentScan
-@EntityScan(
-        basePackageClasses = { ProjectWpApplication.class, Jsr310JpaConverters.class }
-)
 public class ProjectWpApplication {
 
     public static void main(String[] args) {
