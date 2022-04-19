@@ -28,6 +28,7 @@ public class HomeController {
         }
         List<Tenant> tenants = this.tenantService.GetAllTenants();
         model.addAttribute("tenants", tenants);
-        return "index";
+        model.addAttribute("bodyContent", "home");
+        return "master-template";
     }
 }
