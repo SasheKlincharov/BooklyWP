@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @Entity
@@ -25,6 +26,8 @@ public class Schedule {
 
     private boolean isScheduled;
 
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+
     public Schedule() {
     }
 
@@ -33,5 +36,19 @@ public class Schedule {
         this.toDate = toDate;
         this.tenant = tenant;
         this.isScheduled = isScheduled;
+    }
+
+    public String getStatus() {
+        return isScheduled ? "BOOKED" : "NOT BOOKED";
+    }
+
+    public String getFromTime() {
+        String [] parts = fromDate.format(dateTimeFormatter).split("\\s+");
+        return String.format("Time: %s o'clock, on date: %s", parts[1], parts[0]);
+    }
+
+    public String getToTime(){
+        String [] parts = toDate.format(dateTimeFormatter).split("\\s+");
+        return String.format("Time: %s o'clock, on date: %s", parts[1], parts[0]);
     }
 }

@@ -1,15 +1,15 @@
 package project.springservice.project_wp.web.controllers;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project.springservice.project_wp.model.*;
-import project.springservice.project_wp.service.CategoryService;
-import project.springservice.project_wp.service.ProductService;
-import project.springservice.project_wp.service.TenantService;
-import project.springservice.project_wp.service.UserService;
+import project.springservice.project_wp.service.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -21,12 +21,14 @@ public class TenantController  {
     private final ProductService productService;
     private final CategoryService categoryService;
     private final UserService userService;
+    private final AuthService authService;
 
-    public TenantController(TenantService tenantService, ProductService productService, CategoryService categoryService, UserService userService) {
+    public TenantController(TenantService tenantService, ProductService productService, CategoryService categoryService, UserService userService, AuthService authService) {
         this.tenantService = tenantService;
         this.productService = productService;
         this.categoryService = categoryService;
         this.userService = userService;
+        this.authService = authService;
     }
 
 
@@ -109,4 +111,32 @@ public class TenantController  {
         return "redirect:/tenants";
     }
 
+    @GetMapping("/schedules/tenant_{id}")
+    public String getTenantSchedules(@PathVariable Long id,
+                                     @RequestParam(required = false) String error,
+                                     Model model) {
+        if (error != null && !error.isEmpty()) {
+            model.addAttribute("hasError", true);
+            model.addAttribute("error", error);
+        }
+        List<Schedule> scheduleList = this.tenantService.getSchedulesForTenant(id);
+        Tenant tenant = this.tenantService.GetTenant(id);
+        model.addAttribute("schedules", scheduleList);
+        model.addAttribute("tenant", tenant);
+
+        model.addAttribute("bodyContent", "schedules");
+        return "master-template";
+    }
+
+    @Transactional
+    @PostMapping("/schedule/{id}")
+    public String scheduleForTenant(@PathVariable Long id,
+                                    Model model){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+
+        this.tenantService.Schedule(id, user);
+
+        return "redirect:/tenants";
+    }
 }

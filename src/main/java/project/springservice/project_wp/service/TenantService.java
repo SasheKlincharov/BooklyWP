@@ -1,9 +1,6 @@
 package project.springservice.project_wp.service;
 
-import project.springservice.project_wp.model.Category;
-import project.springservice.project_wp.model.Product;
-import project.springservice.project_wp.model.Schedule;
-import project.springservice.project_wp.model.Tenant;
+import project.springservice.project_wp.model.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -30,6 +27,8 @@ public interface TenantService {
     List<Product> GetAllProductsForTenantCategory(Long categoryId, Long tenandId);
     boolean AddProductToTenant(Long tenantId, Long productId);
 
-    boolean Schedule(Schedule schedule);
+    boolean Schedule(Long scheduleId, User user);
     List<Schedule> GetAllSchedulesForDate(Long tenantId, LocalDateTime date);
+
+    List<Schedule> getSchedulesForTenant(Long id);
 }

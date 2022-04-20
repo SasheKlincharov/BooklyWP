@@ -15,9 +15,16 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
 </head>
-<body>
+<body style="background-image: url('https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max'); background-repeat: no-repeat; background-size: cover;">
 
 <header th:replace="fragments/header.html"></header>
+
+<section style="background-image: url('https://i.pinimg.com/originals/c7/f6/a9/c7f6a94073bf0dbe85841a4d03de8509.jpg'); background-repeat: no-repeat; background-size: cover;" class="jumbotron text-center">
+    <div class="container" style="color: aliceblue; font-family: 'Franklin Gothic Heavy','Yu Gothic UI Semilight'" >
+        <i class="fa fa-trash"><h1  class="jumbotron-heading ui-widget-shadow">WEB PROGRAMMING</h1>
+        <h3 class="jumbotron-heading ui-widget-shadow ">Book your appointment</h3></i>
+    </div>
+</section>
 
 
 <section th:include="${bodyContent}"/>

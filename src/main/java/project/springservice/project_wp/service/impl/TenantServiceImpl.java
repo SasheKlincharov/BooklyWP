@@ -3,10 +3,7 @@ package project.springservice.project_wp.service.impl;
 import org.apache.tomcat.jni.Local;
 import org.springframework.stereotype.Service;
 import project.springservice.project_wp.model.*;
-import project.springservice.project_wp.model.exceptions.CategoryNotFoundException;
-import project.springservice.project_wp.model.exceptions.ProductNotFoundException;
-import project.springservice.project_wp.model.exceptions.TenantNotFoundException;
-import project.springservice.project_wp.model.exceptions.UserNotFoundException;
+import project.springservice.project_wp.model.exceptions.*;
 import project.springservice.project_wp.repository.*;
 import project.springservice.project_wp.service.TenantService;
 
@@ -167,12 +164,37 @@ public class TenantServiceImpl implements TenantService {
     }
 
     @Override
-    public boolean Schedule(Schedule schedule) {
-        return false;
+    public boolean Schedule(Long scheduleId, User user) {
+        Schedule schedule = this.scheduleRepository.findById(scheduleId)
+                .orElseThrow(ScheduleNotFoundException::new);
+
+        Tenant tenant = GetTenant(schedule.getTenant().getId());
+
+        List<Schedule> allSchedules = tenant.getSchedules();
+
+        schedule.setScheduled(true);
+        schedule.setUser(user);
+
+        int indexOf = allSchedules.indexOf(schedule);
+        allSchedules.remove(indexOf);
+        allSchedules.add(indexOf, schedule);
+
+        tenant.setSchedules(allSchedules);
+
+        this.tenantRepository.save(tenant);
+        return true;
     }
 
     @Override
     public List<Schedule> GetAllSchedulesForDate(Long tenantId, LocalDateTime date) {
         return null;
+    }
+
+    @Override
+    public List<Schedule> getSchedulesForTenant(Long id) {
+        Tenant tenant = this.GetTenant(id);
+
+        return tenant.getSchedules();
+
     }
 }
