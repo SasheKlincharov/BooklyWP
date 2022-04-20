@@ -1,18 +1,18 @@
 package project.springservice.project_wp.service.impl;
 
+import org.apache.tomcat.jni.Local;
 import org.springframework.stereotype.Service;
 import project.springservice.project_wp.model.*;
 import project.springservice.project_wp.model.exceptions.CategoryNotFoundException;
 import project.springservice.project_wp.model.exceptions.ProductNotFoundException;
 import project.springservice.project_wp.model.exceptions.TenantNotFoundException;
 import project.springservice.project_wp.model.exceptions.UserNotFoundException;
-import project.springservice.project_wp.repository.CategoryRepository;
-import project.springservice.project_wp.repository.ProductRepository;
-import project.springservice.project_wp.repository.TenantRepository;
-import project.springservice.project_wp.repository.UserRepository;
+import project.springservice.project_wp.repository.*;
 import project.springservice.project_wp.service.TenantService;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,12 +23,14 @@ public class TenantServiceImpl implements TenantService {
     private final CategoryRepository categoryRepository;
     private final TenantRepository tenantRepository;
     private final UserRepository userRepository;
+    private final ScheduleRepository scheduleRepository;
 
-    public TenantServiceImpl(ProductRepository productRepository, CategoryRepository categoryRepository, TenantRepository tenantRepository, UserRepository userRepository) {
+    public TenantServiceImpl(ProductRepository productRepository, CategoryRepository categoryRepository, TenantRepository tenantRepository, UserRepository userRepository, ScheduleRepository scheduleRepository) {
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
         this.tenantRepository = tenantRepository;
         this.userRepository = userRepository;
+        this.scheduleRepository = scheduleRepository;
     }
 
     @Override
@@ -42,31 +44,8 @@ public class TenantServiceImpl implements TenantService {
                 .orElseThrow(() -> new TenantNotFoundException(id));
     }
 
-    //    private String name;
-//    @ManyToOne
-//    private User owner;
-//    private String description;
-//    private String logoUrl;
-//    private String color;
-//    private String address;
-//    private String phoneNumber;
-//    private String email;
-//    private double rating;
-//    private LocalDateTime startingTime;
-//    private LocalDateTime endingTime;
-//    private String facebookLink;
-//    private String instagramLink;
-//
-//    @ManyToOne
-//    private Category category;
-//
-//    @ManyToMany
-//    private List<Schedule> schedules;
-//    @ManyToMany
-//    private List<Product> productsInTenant;
-//
-//    public int appointmentTime;
     @Override
+    @Transactional
     public Optional<Tenant> CreateNewTenant(String name, String ownerUsername, String description, String logoUrl,
                                   String color, String address, String phoneNumber, String email, double rating,
                                   LocalDateTime startingTime, LocalDateTime endingTime, String facebookLink, String instagramLink,
@@ -79,11 +58,46 @@ public class TenantServiceImpl implements TenantService {
                 .orElseThrow(() -> new UserNotFoundException(ownerUsername));
 
         List<Product> products = this.productRepository.findAllById(productIds);
-
         Tenant tenant = new Tenant(name,user,description, logoUrl, color, address, phoneNumber, email, rating, startingTime, endingTime,facebookLink, instagramLink,category, products, appointmentTime);
+
+        List<Schedule> schedulesList = createSchedulesForTenant(startingTime,
+                endingTime,
+                appointmentTime,
+                tenant);
+
+        tenant.setSchedules(schedulesList);
+
         tenantRepository.save(tenant);
         return Optional.of(tenant);
     }
+
+    private List<Schedule> createSchedulesForTenant(LocalDateTime startingTime, LocalDateTime endingTime, int appointmentTime, Tenant tenant) {
+        int hoursDifference = endingTime.getHour() - startingTime.getHour();//16-8 = 8
+        double appointmentToHour = appointmentTime/60.0;
+
+        double totalSchedules = Math.floor(hoursDifference/appointmentToHour);
+        List<Schedule> schedules = new ArrayList<>();
+
+        int pomHour = startingTime.getHour();
+        int pomMinute = startingTime.getMinute();
+
+
+        for (int i = 0; i < totalSchedules; i++) {
+            int tempHour = pomHour;
+            int tempMinute = pomMinute;
+            Schedule schedule = new Schedule(
+                    LocalDateTime.of(startingTime.getYear(), startingTime.getMonth(), startingTime.getDayOfMonth(), tempHour,tempMinute),
+                    LocalDateTime.of(startingTime.getYear(), startingTime.getMonth(), startingTime.getDayOfMonth(), (tempMinute+appointmentTime>=60)?tempHour+1:tempHour, (tempMinute+appointmentTime>=60)? (tempMinute+appointmentTime)%60:appointmentTime+pomMinute)
+                    ,tenant,false);
+
+            schedules.add(schedule);
+            pomHour = (tempMinute+appointmentTime>=60)?tempHour+1:tempHour;
+            pomMinute = (tempMinute+appointmentTime>=60)? (tempMinute+appointmentTime)%60:appointmentTime+pomMinute;
+        }
+        return schedules;
+    }
+
+
 
     @Override
     public void DeleteTenant(Long id) {

@@ -1,6 +1,7 @@
 package project.springservice.project_wp.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -9,7 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data
+@Setter
+@Getter
 public class Tenant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,18 +34,17 @@ public class Tenant {
     private LocalDateTime endingTime;
     private String facebookLink;
     private String instagramLink;
-
     @ManyToOne
     private Category category;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Schedule> schedules;
     @ManyToMany
     private List<Product> productsInTenant;
 
-
     public int appointmentTime;
 
+    public Tenant(){}
 
     public Tenant(String name, User owner, String description, String logoUrl, String color, String address, String phoneNumber, String email, double rating, LocalDateTime startingTime, LocalDateTime endingTime, String facebookLink, String instagramLink, Category category, List<Product> productsInTenant, int appointmentTime) {
         this.name = name;
@@ -62,12 +63,6 @@ public class Tenant {
         this.category = category;
         this.productsInTenant = productsInTenant;
         this.appointmentTime = appointmentTime;
-    }
-
-    public Tenant() {
-        this.productsInTenant = new ArrayList<>();
         this.schedules = new ArrayList<>();
     }
-
-
 }

@@ -22,8 +22,16 @@ public class Schedule {
     private User user;
     @ManyToOne
     private Tenant tenant;
+
     private boolean isScheduled;
 
     public Schedule() {
+    }
+
+    public Schedule(LocalDateTime fromDate, LocalDateTime toDate, Tenant tenant, boolean isScheduled) {
+        this.fromDate = fromDate;
+        this.toDate = toDate;
+        this.tenant = tenant;
+        this.isScheduled = isScheduled;
     }
 }
