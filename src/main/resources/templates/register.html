@@ -29,16 +29,16 @@
                    autofocus="">
         </p>
 
-        <div>
-            <label>Tenant</label><br/>
-            <select id="tenants" name="tenantId">
-                <option
-                        th:each="tenant : ${tenants}"
-                        th:value="${tenant.getId()}"
-                        th:text="${tenant.getName()}">
-                </option>
-            </select>
-        </div>
+<!--        <div>-->
+<!--            <label>Tenant</label><br/>-->
+<!--            <select id="tenants" name="tenantId">-->
+<!--                <option-->
+<!--                        th:each="tenant : ${tenants}"-->
+<!--                        th:value="${tenant.getId()}"-->
+<!--                        th:text="${tenant.getName()}">-->
+<!--                </option>-->
+<!--            </select>-->
+<!--        </div>-->
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
     </form>
