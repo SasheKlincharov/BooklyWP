@@ -31,4 +31,6 @@ public interface TenantService {
     List<Schedule> GetAllSchedulesForDate(Long tenantId, LocalDateTime date);
 
     List<Schedule> getSchedulesForTenant(Long id);
+
+    Tenant getTenantFromSchedule(Long scheduleId);
 }

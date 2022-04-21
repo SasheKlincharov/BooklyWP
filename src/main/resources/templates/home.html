@@ -1,9 +1,84 @@
-<!--<section class="jumbotron text-center" xmlns:th="http://www.thymeleaf.org">-->
-  <div class="container">
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Bookly</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+          integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+          crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+          integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+          crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+          integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+          crossorigin="anonymous"></script>
+  <style>
+    * {
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/home">Bookly</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+              aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
+        <ul class="navbar-nav m-auto">
+          <li class="nav-item m-auto">
+            <a class="nav-link active" href="/home">Home</a>
+          </li>
+          <li class="nav-item m-auto">
+            <a class="nav-link active" href="/tenants">Tenants</a>
+          </li>
+          <li class="nav-item m-auto">
+            <a class="nav-link active" href="/products">Products</a>
+          </li>
+          <li class="nav-item m-auto">
+            <a class="nav-link active" href="/tenants">Contact</a>
+          </li>
+          <li class="nav-item m-auto">
+            <a class="nav-link active" href="/home/aboutus">About us</a>
+          </li>
+
+        </ul>
+
+        <ul style="list-style: none" class="form-inline my-2 my-lg-0">
+          <li sec:authorize="isAnonymous()" style="margin-right:10px;"><a href="/login" class="btn btn-block btn-primary active" style="padding:5px 10px 5px 10px;"><span style="font-size: 13px;">Log In / Sign up</span></a></li>
+          <li sec:authorize="isAuthenticated()" ><a class="btn btn-block btn-outline-secondary btn-light" style="padding:5px 10px 5px 10px;" href="/logout">
+            <span style="font-size: 13px;">Logout</span>
+          </a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="container">
+
+</div>
+<div class="container" style="min-width:-webkit-fill-available; opacity: 90%; height:1000px; background-image: url('https://cdn2.howtostartanllc.com/images/business-ideas/business-idea-images/Beauty-Salon.jpg'); background-repeat: no-repeat; background-size: cover;">
 <!--    <h1 class="jumbotron-heading">WEB PROGRAMMING SHOP</h1>-->
 <!--    <a href="/calendar">Calendar</a>-->
-      <a href="/calendar" class="btn btn-block btn-dark add-product-btn">
-          Calendar
-      </a>
+    <div class="container" style=" text-align: center; margin-top:100px; justify-content: center; color: aliceblue; font-family: 'Franklin Gothic Heavy','Yu Gothic UI Semilight'" >
+
+      <i class="fa fa-trash"><span  class="jumbotron-heading ui-widget-shadow" style="margin-top:60px; font-size: 90px; color: #343a40">Bookly</span><br>
+        <p class="jumbotron-heading ui-widget-shadow" style="color: lightslategray; font-size:30px; opacity: 70%; margin-top:-25px;">Book your appointment</p></i>
+      <p sec:authorize="isAuthenticated()" ><a style="padding:15px 30px 15px 30px;" href="/tenants" class="btn btn-primary active" role="button" data-mdb-toggle="button" aria-pressed="true">GET STARTED</a>
+      </p>
+      <p sec:authorize="isAnonymous()" ><a style="padding:15px 30px 15px 30px;" href="/login" class="btn btn-primary active" role="button" data-mdb-toggle="button" aria-pressed="true">GET STARTED</a>
+      </p>
+
+    </div>
   </div>
-<!--</section>-->
+
+</body>
+</html>

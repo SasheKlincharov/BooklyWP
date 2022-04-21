@@ -197,4 +197,13 @@ public class TenantServiceImpl implements TenantService {
         return tenant.getSchedules();
 
     }
+
+    @Override
+    public Tenant getTenantFromSchedule(Long scheduleId) {
+        Schedule schedule = this.scheduleRepository.findById(scheduleId)
+                .orElseThrow(ScheduleNotFoundException::new);
+
+        return schedule.getTenant();
+
+    }
 }

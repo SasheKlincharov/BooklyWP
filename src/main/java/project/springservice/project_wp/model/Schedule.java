@@ -44,11 +44,11 @@ public class Schedule {
 
     public String getFromTime() {
         String [] parts = fromDate.format(dateTimeFormatter).split("\\s+");
-        return String.format("Time: %s o'clock, on date: %s", parts[1], parts[0]);
+        return String.format("Time: %s o'clock\nDate: %s", parts[1], parts[0]);
     }
 
     public String getToTime(){
         String [] parts = toDate.format(dateTimeFormatter).split("\\s+");
-        return String.format("Time: %s o'clock, on date: %s", parts[1], parts[0]);
+        return String.format("Time: %s o'clock\nDate: %s", parts[1], parts[0]);
     }
 }

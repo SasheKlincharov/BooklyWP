@@ -7,10 +7,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project.springservice.project_wp.model.*;
 import project.springservice.project_wp.service.*;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -85,11 +84,9 @@ public class TenantController  {
             @RequestParam String description,
             @RequestParam String ownerUsername,
             @RequestParam String logoUrl,
-            @RequestParam String color,
             @RequestParam String address,
             @RequestParam String phoneNumber,
             @RequestParam String email,
-            @RequestParam double rating,
             @RequestParam String facebookLink,
             @RequestParam String instagramLink,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startingTime,
@@ -99,12 +96,12 @@ public class TenantController  {
             @RequestParam int appointmentTime) {
         if (id != null) {
             this.tenantService.UpdeteExistingTenant(id, name, ownerUsername, description, logoUrl,
-                    color, address, phoneNumber, email, rating,
+                    "Green", address, phoneNumber, email, 10.0,
             startingTime, endingTime, facebookLink, instagramLink,
                     categoryId, productIds, appointmentTime);
         } else {
             this.tenantService.CreateNewTenant( name, ownerUsername, description, logoUrl,
-                    color, address, phoneNumber, email, rating,
+                    "Green", address, phoneNumber, email, 10.0,
                     startingTime, endingTime, facebookLink, instagramLink,
                     categoryId, productIds, appointmentTime);
         }
@@ -120,6 +117,8 @@ public class TenantController  {
             model.addAttribute("error", error);
         }
         List<Schedule> scheduleList = this.tenantService.getSchedulesForTenant(id);
+        scheduleList.sort(Comparator.comparing(Schedule::getStatus).reversed());
+
         Tenant tenant = this.tenantService.GetTenant(id);
         model.addAttribute("schedules", scheduleList);
         model.addAttribute("tenant", tenant);
@@ -137,6 +136,13 @@ public class TenantController  {
 
         this.tenantService.Schedule(id, user);
 
-        return "redirect:/tenants";
+        Tenant tenant = this.tenantService.getTenantFromSchedule(id);
+        List<Schedule> scheduleList = this.tenantService.getSchedulesForTenant(tenant.getId());
+        scheduleList.sort(Comparator.comparing(Schedule::getStatus).reversed());
+        model.addAttribute("schedules", scheduleList);
+        model.addAttribute("tenant", tenant);
+
+        model.addAttribute("bodyContent", "schedules");
+        return "master-template";
     }
 }

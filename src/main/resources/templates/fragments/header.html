@@ -1,4 +1,5 @@
-<header>
+
+<header  lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="/home">Bookly</a>
@@ -13,30 +14,30 @@
                         <a class="nav-link active" href="/home">Home</a>
                     </li>
                     <li class="nav-item m-auto">
+                        <a class="nav-link active" href="/tenants">Tenants</a>
+                    </li>
+                    <li class="nav-item m-auto">
                         <a class="nav-link active" href="/products">Products</a>
                     </li>
                     <li class="nav-item m-auto">
-                        <a class="nav-link active" href="/tenants">Tenants</a>
+                        <a class="nav-link active" href="/tenants">Contact</a>
                     </li>
+                    <li class="nav-item m-auto">
+                        <a class="nav-link active" href="/home/aboutus">About us</a>
+                    </li>
+
+
+
+
 
                 </ul>
 
-                <form class="form-inline my-2 my-lg-0">
-                    <div class="input-group input-group-sm">
-                        <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
-                               placeholder="Search...">
-                        <div class="input-group-append">
-                            <button type="button" class="btn btn-secondary btn-number">
-                                <i class="fa fa-search"></i>
-                            </button>
-                        </div>
-                    </div>
-                 </a>
-
-                    <a class="btn btn-light btn-sm ml-3" href="/logout">
-                        <i class="fa fa-shopping-cart"></i> Logout
-                    </a>
-                </form>
+                <ul style="list-style: none" class="form-inline my-2 my-lg-0">
+                    <li style="margin-right:10px;"><a sec:authorize="isAnonymous()" href="/login" class="btn btn-block btn-primary active" style="padding:5px 10px 5px 10px;"><span style="font-size: 13px;">Log In / Sign up</span></a></li>
+                    <li ><a sec:authorize="isAuthenticated()" class="btn btn-block btn-outline-secondary btn-light" style="padding:5px 10px 5px 10px;" href="/logout">
+                        <span style="font-size: 13px;">Logout</span>
+                    </a></li>
+                </ul>
             </div>
         </div>
     </nav>

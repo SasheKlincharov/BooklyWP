@@ -28,7 +28,13 @@ public class HomeController {
         }
         List<Tenant> tenants = this.tenantService.GetAllTenants();
         model.addAttribute("tenants", tenants);
-        model.addAttribute("bodyContent", "home");
+//        model.addAttribute("bodyContent", "home");
+        return "home";
+    }
+
+    @GetMapping("/aboutus")
+    public String getHomePage(Model model) {
+        model.addAttribute("bodyContent","aboutus");
         return "master-template";
     }
 }

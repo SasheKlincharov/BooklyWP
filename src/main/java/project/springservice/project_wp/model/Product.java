@@ -1,13 +1,16 @@
 package project.springservice.project_wp.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
 public class Product {
 
@@ -17,12 +20,12 @@ public class Product {
 
     private String name;
     private double price;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Category category;
 
     @Column(length =999999)
     private String imageUrl;
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Tenant> tenants;
 
     @Enumerated(EnumType.STRING)

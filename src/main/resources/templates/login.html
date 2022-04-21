@@ -1,6 +1,6 @@
-<div class="container" xmlns:th="http://www.thymeleaf.org">
-    <form class="form-signin mt-xl-5" method="post" action="/login">
-        <h2 class="form-signin-heading">Sign in</h2>
+<div class="container mb-md-2" style="width:350px;background-color: white; border: 1px solid lightgray" xmlns:th="http://www.thymeleaf.org">
+    <form style="padding:5px;" class="form-signin mt-md-2" method="post" action="/login">
+        <h2 class="form-signin-heading text-center" style="color:black;">Sign in</h2>
         <p>
             <label for="username" class="sr-only">Username</label>
             <input type="text" id="username" name="username" class="form-control" placeholder="Username" required=""
@@ -16,5 +16,5 @@
 
         <button id="submit" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
     </form>
-    <a href="/register" class="btn btn-block btn-light">Register here</a>
+    <a href="/register" style="margin-bottom: 20px;" class="btn btn-block btn-outline-secondary btn-light">Register here</a>
 </div>

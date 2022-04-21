@@ -1,16 +1,17 @@
-<div xmlns:th="http://www.thymeleaf.org">
+<div xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
-  <div class="container mb-4">
+<div class="container mb-4">
     <div class="row">
       <div class="col-12" th:if="${products.size() > 0}">
         <div class="table-responsive">
-          <table class="table table-striped table-dark">
-            <thead>
+          <table class="table table-striped table-light">
+            <thead class="thead-dark">
             <tr>
               <th scope="col">Product name</th>
               <th scope="col">Price</th>
               <th scope="col">Category</th>
               <th scope="col">Image</th>
+              <th scope="col">&nbsp</th>
             </tr>
             </thead>
             <tbody>
@@ -21,15 +22,16 @@
                             ? ${product.getCategory().getName()} : 'No Category'"></td>
               <td><img style="height:100px;" th:src="${product.getImageUrl()}"></td>
               <td class="text-right">
-                  <form th:action="@{'/products/delete/{id}' (id=${product.getId()})}"
+                  <form sec:authorize="hasRole('ROLE_ADMIN')"
+                          th:action="@{'/products/delete/{id}' (id=${product.getId()})}"
                         th:method="DELETE">
                     <button type="submit"
                             class="btn btn-sm btn-danger delete-product">
                       <i class="fa fa-trash">Delete</i>
                     </button>
                   </form>
-                  <a th:href="@{'/products/edit-form/{id}' (id=${product.getId()})}"
-                     class="btn btn-sm btn-info edit-product">
+                  <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{'/products/edit-form/{id}' (id=${product.getId()})}"
+                     class="btn btn-sm btn-warning edit-product">
                     <i class="fa fa-trash">Edit</i>
                   </a>
               </td>
