@@ -33,8 +33,15 @@ public class HomeController {
     }
 
     @GetMapping("/aboutus")
-    public String getHomePage(Model model) {
+    public String getAboutUsPage(Model model) {
         model.addAttribute("bodyContent","aboutus");
         return "master-template";
     }
+
+    @GetMapping("/contact")
+    public String getContactPage(Model model) {
+        return "contact";
+    }
+
+
 }

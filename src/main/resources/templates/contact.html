@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Bookly</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+
+</head>
+<body style="min-width:-webkit-fill-available; height:900px; background-color: #efe6dd">
+
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/home">Bookly</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+                    aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
+                <ul class="navbar-nav m-auto">
+                    <li class="nav-item m-auto">
+                        <a class="nav-link active" href="/home">Home</a>
+                    </li>
+                    <li class="nav-item m-auto">
+                        <a class="nav-link active" href="/tenants">Tenants</a>
+                    </li>
+                    <li class="nav-item m-auto">
+                        <a class="nav-link active" href="/products">Products</a>
+                    </li>
+                    <li class="nav-item m-auto">
+                        <a class="nav-link active" href="/home/contact">Contact</a>
+                    </li>
+                    <li class="nav-item m-auto">
+                        <a class="nav-link active" href="/home/aboutus">About us</a>
+                    </li>
+
+                </ul>
+
+                <ul style="list-style: none" class="form-inline my-2 my-lg-0">
+                    <li sec:authorize="isAnonymous()" style="margin-right:10px;"><a href="/login" class="btn btn-block btn-primary active" style="padding:5px 10px 5px 10px;"><span style="font-size: 13px;">Log In / Sign up</span></a></li>
+                    <li sec:authorize="isAuthenticated()" ><a class="btn btn-block btn-outline-secondary btn-light" style="padding:5px 10px 5px 10px;" href="/logout">
+                        <span style="font-size: 13px;">Logout</span>
+                    </a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<section style="height:300px; background-image: url('https://www.prodigia-cosmetics.com/wp-content/uploads/2021/04/Article-2-Cosm%C3%A9tique-naturel.jpg'); background-repeat: no-repeat; background-size: cover;" class="jumbotron text-center">
+    <div class="container" style="justify-content: center; color: aliceblue; font-family: 'Franklin Gothic Heavy','Yu Gothic UI Semilight'" >
+        <i class="fa fa-trash"><h1  class="jumbotron-heading ui-widget-shadow" style="margin-top:30px; color: #343a40">Bookly</h1>
+            <h3 class="jumbotron-heading ui-widget-shadow " style="color: dimgray; margin-top:-15px;">Book your appointment</h3></i>
+    </div>
+</section>
+
+
+<section  th:replace="fragments/section.html"></section>
+
+
+</body>
+</html>
+
