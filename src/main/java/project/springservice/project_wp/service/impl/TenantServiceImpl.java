@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class TenantServiceImpl implements TenantService {
@@ -205,5 +206,22 @@ public class TenantServiceImpl implements TenantService {
 
         return schedule.getTenant();
 
+    }
+
+    @Override
+    public List<Tenant> getRandomTenants(Random rnd) {
+        List<Tenant> tenantRandoms = new ArrayList<>();
+        List<Tenant> tenants = this.GetAllTenants();
+        if(tenants.size()>3){
+            int counter = 0;
+            while(counter != 3){
+                int number = rnd.nextInt(tenants.size()-1);
+                if(!tenantRandoms.contains(tenants.get(number))){
+                    tenantRandoms.add(tenants.get(number));
+                    counter++;
+                }
+            }
+        }
+        return tenantRandoms;
     }
 }

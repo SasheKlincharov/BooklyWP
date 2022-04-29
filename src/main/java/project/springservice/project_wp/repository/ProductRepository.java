@@ -5,6 +5,8 @@ import org.springframework.stereotype.Repository;
 import project.springservice.project_wp.model.Category;
 import project.springservice.project_wp.model.Product;
 
+import java.util.List;
+
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
 }

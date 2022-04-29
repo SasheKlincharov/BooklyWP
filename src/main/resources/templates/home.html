@@ -65,16 +65,16 @@
 <div class="container">
 
 </div>
-<div class="container" style="min-width:-webkit-fill-available; opacity: 90%; height:1000px; background-image: url('https://cdn2.howtostartanllc.com/images/business-ideas/business-idea-images/Beauty-Salon.jpg'); background-repeat: no-repeat; background-size: cover;">
+<div class="container" style="min-width:-webkit-fill-available; opacity: 90%; height:1200px; background-image: url('https://cdn2.howtostartanllc.com/images/business-ideas/business-idea-images/Beauty-Salon.jpg'); background-repeat: no-repeat; background-size: cover;">
 <!--    <h1 class="jumbotron-heading">WEB PROGRAMMING SHOP</h1>-->
 <!--    <a href="/calendar">Calendar</a>-->
     <div class="container" style=" text-align: center; margin-top:100px; justify-content: center; color: aliceblue; font-family: 'Franklin Gothic Heavy','Yu Gothic UI Semilight'" >
 
       <i class="fa fa-trash"><span  class="jumbotron-heading ui-widget-shadow" style="margin-top:60px; font-size: 90px; color: #343a40">Bookly</span><br>
         <p class="jumbotron-heading ui-widget-shadow" style="color: lightslategray; font-size:30px; opacity: 70%; margin-top:-25px;">Book your appointment</p></i>
-      <p sec:authorize="isAuthenticated()" ><a style="padding:15px 30px 15px 30px;" href="/tenants" class="btn btn-primary active" role="button" data-mdb-toggle="button" aria-pressed="true">GET STARTED</a>
+      <p id="get_started" sec:authorize="isAuthenticated()" ><a style="padding:15px 30px 15px 30px;" href="/tenants" class="btn btn-primary active" role="button" data-mdb-toggle="button" aria-pressed="true">GET STARTED</a>
       </p>
-      <p sec:authorize="isAnonymous()" ><a style="padding:15px 30px 15px 30px;" href="/login" class="btn btn-primary active" role="button" data-mdb-toggle="button" aria-pressed="true">GET STARTED</a>
+      <p id="get_started"  sec:authorize="isAnonymous()" ><a style=" padding:15px 30px 15px 30px;" href="/login" class="btn btn-primary active" role="button" data-mdb-toggle="button" aria-pressed="true">GET STARTED</a>
       </p>
 
     </div>

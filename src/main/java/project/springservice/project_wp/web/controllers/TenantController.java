@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 
 @Controller
 @RequestMapping("/tenants")
@@ -21,6 +22,7 @@ public class TenantController  {
     private final CategoryService categoryService;
     private final UserService userService;
     private final AuthService authService;
+    private static Random rnd = new Random();
 
     public TenantController(TenantService tenantService, ProductService productService, CategoryService categoryService, UserService userService, AuthService authService) {
         this.tenantService = tenantService;
@@ -39,6 +41,8 @@ public class TenantController  {
         }
         List<Tenant> tenants = this.tenantService.GetAllTenants();
         model.addAttribute("tenants", tenants);
+        List<Tenant> randomsForFooter = this.tenantService.getRandomTenants(rnd);
+        model.addAttribute("footerTenants", randomsForFooter);
         model.addAttribute("bodyContent", "tenants");
         return "master-template";
     }
@@ -143,6 +147,14 @@ public class TenantController  {
         model.addAttribute("tenant", tenant);
 
         model.addAttribute("bodyContent", "schedules");
+        return "master-template";
+    }
+
+    @GetMapping("/details/{id}")
+    public String getDetailsForTenant(@PathVariable Long id, Model model){
+        Tenant tenant = this.tenantService.GetTenant(id);
+        model.addAttribute("tenant", tenant);
+        model.addAttribute("bodyContent", "tenant-details");
         return "master-template";
     }
 }

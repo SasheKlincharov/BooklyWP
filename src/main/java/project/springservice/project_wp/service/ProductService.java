@@ -19,4 +19,6 @@ public interface ProductService {
     List<ProductEnum> getAllProductEnums();
 
     Optional<Product> UpdeteExistingProduct(Long Id, String name, double price, CategoryEnum categoryEnum, String imageUrl, ProductEnum productEnum);
+
+    List<Product> filterByCategory(String searchByCategory);
 }

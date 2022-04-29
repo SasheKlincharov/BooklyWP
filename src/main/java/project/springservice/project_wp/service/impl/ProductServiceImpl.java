@@ -80,4 +80,16 @@ public class ProductServiceImpl implements ProductService {
         productRepository.save(product);
         return Optional.of(product);
     }
+
+    @Override
+    public List<Product> filterByCategory(String searchByCategory) {
+        String finalSearchByCategory = searchByCategory.toLowerCase();
+        return this.productRepository.findAll()
+                .stream()
+                .filter(each -> each.getCategory().getName().toLowerCase().equalsIgnoreCase(finalSearchByCategory)
+                || each.getCategory().getName().toLowerCase().startsWith(finalSearchByCategory) ||
+                        each.getCategory().getName().toLowerCase().endsWith(finalSearchByCategory)
+                || each.getCategory().getName().toLowerCase().contains(finalSearchByCategory))
+                .collect(Collectors.toList());
+    }
 }

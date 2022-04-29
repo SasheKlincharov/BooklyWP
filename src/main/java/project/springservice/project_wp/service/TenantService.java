@@ -5,6 +5,7 @@ import project.springservice.project_wp.model.*;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 public interface TenantService {
     List<Tenant> GetAllTenants();
@@ -33,4 +34,6 @@ public interface TenantService {
     List<Schedule> getSchedulesForTenant(Long id);
 
     Tenant getTenantFromSchedule(Long scheduleId);
+
+    List<Tenant> getRandomTenants(Random rnd);
 }

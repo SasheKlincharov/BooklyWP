@@ -169,7 +169,7 @@
 
                     <div>
                         <label>Products</label><br/>
-                        <select style="width:445px;" id="productIds" name="productIds" multiple size="3">
+                        <select style="width:445px; height:450px;" id="productIds" name="productIds" multiple size="3">
                             <!-- For each skill you should have one <option> like below  -->
                             <option th:if="${tenant} == null"
                                     th:each="prod : ${products}"

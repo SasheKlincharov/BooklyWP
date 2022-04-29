@@ -39,7 +39,7 @@ public class Tenant {
 
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Schedule> schedules;
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
     private List<Product> productsInTenant;
 
     public int appointmentTime;

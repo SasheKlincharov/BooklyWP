@@ -25,7 +25,7 @@ public class Product {
 
     @Column(length =999999)
     private String imageUrl;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
     private List<Tenant> tenants;
 
     @Enumerated(EnumType.STRING)

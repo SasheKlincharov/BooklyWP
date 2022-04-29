@@ -1,7 +1,7 @@
-
 <!DOCTYPE html>
 
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"/>
     <title>Bookly</title>
@@ -17,23 +17,26 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
 </head>
-<style>
 
-</style>
 <body style="background-image: url('https://media.istockphoto.com/photos/beige-abstract-backgroundlight-centerspotwhiteemptylight-picture-id1146974104?k=20&m=1146974104&s=612x612&w=0&h=sewjma0yJbluWRhNQTj_kRIuj9i9KY6TvigGrf2t7qM='); background-repeat: no-repeat; background-size: cover;">
 
 <header th:replace="fragments/header.html"></header>
 
-<section style="height:300px; background-image: url('https://www.prodigia-cosmetics.com/wp-content/uploads/2021/04/Article-2-Cosm%C3%A9tique-naturel.jpg'); background-repeat: no-repeat; background-size: cover;" class="jumbotron text-center">
-    <div class="container" style="justify-content: center; color: aliceblue; font-family: 'Franklin Gothic Heavy','Yu Gothic UI Semilight'" >
-        <i class="fa fa-trash"><h1  class="jumbotron-heading ui-widget-shadow" style="margin-top:30px; color: #343a40">Bookly</h1>
-            <h3 class="jumbotron-heading ui-widget-shadow " style="color: dimgray; margin-top:-15px;">Book your appointment</h3></i>
+<section
+        style="height:300px; background-image: url('https://www.prodigia-cosmetics.com/wp-content/uploads/2021/04/Article-2-Cosm%C3%A9tique-naturel.jpg'); background-repeat: no-repeat; background-size: cover;"
+        class="jumbotron text-center">
+    <div class="container"
+         style="justify-content: center; color: aliceblue; font-family: 'Franklin Gothic Heavy','Yu Gothic UI Semilight'">
+        <i class="fa fa-trash"><h1 class="jumbotron-heading ui-widget-shadow" style="margin-top:30px; color: #343a40">
+            Bookly</h1>
+            <h3 class="jumbotron-heading ui-widget-shadow " style="color: dimgray; margin-top:-15px;">Book your
+                appointment</h3></i>
     </div>
 </section>
 
 
-
 <section th:include="${bodyContent}"/>
+
 
 
 

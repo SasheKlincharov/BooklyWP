@@ -26,12 +26,20 @@ public class ProductController {
     }
 
     @GetMapping
-    public String getProductPage(@RequestParam(required = false) String error, Model model) {
+    public String getProductPage(@RequestParam(required = false) String error,
+                                 @RequestParam(required = false) String searchByCategory,
+                                 Model model) {
         if (error != null && !error.isEmpty()) {
             model.addAttribute("hasError", true);
             model.addAttribute("error", error);
         }
-        List<Product> products = this.productService.GetAllProducts();
+        List<Product> products;
+        if(searchByCategory!=null){
+            products = this.productService.filterByCategory(searchByCategory);
+        }else {
+            products =this.productService.GetAllProducts();
+        }
+
         model.addAttribute("products", products);
         model.addAttribute("bodyContent", "products");
         return "master-template";

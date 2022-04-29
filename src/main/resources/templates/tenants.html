@@ -58,7 +58,7 @@
                 </div>
             </div>
             <div class="col mb-3">
-                <div class="row">
+                <div sec:authorize="hasRole('ROLE_ADMIN')" class="row">
                     <a href="/tenants/add-form" class="btn btn-block btn-dark add-product-btn">
                         Add new tenant
                     </a>

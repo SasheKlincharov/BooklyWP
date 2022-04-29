@@ -116,5 +116,4 @@ public enum ProductEnum {
 
     Weave,
     Waxing,
-
 }
